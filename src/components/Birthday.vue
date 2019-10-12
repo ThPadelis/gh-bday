@@ -1,10 +1,14 @@
 <template>
   <main class="min-vh-100 d-flex align-items-center">
     <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+          <img :src="require('@/assets/steroidtocat.png')" alt="Octocat icon" height="250" />
+        </div>
+      </div>
       <div class="row justify-content-center">
         <div class="col-5">
-          <div class="form-group">
-            <!-- <label for="username">Username</label> -->
+          <!-- <div class="form-group">
             <input
               type="text"
               name="username"
@@ -15,11 +19,37 @@
               autocomplete="off"
               @keyup.enter="onSubmit()"
             />
+          </div>-->
+          <div class="input-group">
+            <div class="input-group-prepend border-bottom">
+              <span class="input-group-text">
+                <i class="fa fa-at"></i>
+              </span>
+            </div>
+            <input
+              type="text"
+              name="username"
+              id="username"
+              v-model="username"
+              class="form-control"
+              placeholder="GitHub username"
+              autocomplete="off"
+              @keyup.enter="onSubmit()"
+            />
+            <div class="input-group-append">
+              <button
+                class="btn shadow-none border-bottom btn-outline-secondary"
+                @click="onSubmit()"
+                type="button"
+              >
+                <span class="fa fa-search"></span>
+              </button>
+            </div>
           </div>
         </div>
         <div class="col-12" v-if="user">
           <div class="d-flex align-items-center justify-content-center">
-            <img :src="user.avatar_url" alt="user avatar" height="150" class="rounded-circle mr-4" />
+            <img :src="user.avatar_url" alt="user avatar" height="75" class="rounded-circle mr-4" />
             <div class="mb-0">
               <h4>
                 <a

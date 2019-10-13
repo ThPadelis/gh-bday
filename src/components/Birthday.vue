@@ -9,7 +9,7 @@
       </div>
       <!-- Input -->
       <div class="row justify-content-center">
-        <div class="col-12 col-md-3 text-center">
+        <div class="col-12 col-md-5 text-center">
           <div class="input-group border rounded pl-3">
             <input
               type="text"
@@ -34,13 +34,6 @@
           <div v-if="!userNotFound">
             <user :user="user"></user>
           </div>
-          <div v-else>Not found</div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-12">
-          <pre>{{user}}</pre>
         </div>
       </div>
     </div>
@@ -53,7 +46,12 @@ export default {
   name: "birthday",
   components: {
     User: () =>
-      import(/* webpckChunkName: "user-component" */ "@/components/User.vue")
+      import(/* webpckChunkName: "user-component" */ "@/components/User.vue"),
+
+    NotFound: () =>
+      import(
+        /* webpckChunkName: "user-not-found-component" */ "@/components/NotFound.vue"
+      )
   },
   data() {
     return {
@@ -81,5 +79,8 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+[class*="col-"] {
+  margin-bottom: 1.5rem;
+}
 </style>

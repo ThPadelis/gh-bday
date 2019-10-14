@@ -1,5 +1,6 @@
 <template>
-  <section class="min-vh-100 d-flex justify-content-center align-items-center">
+  <loader v-if="isLoading"></loader>
+  <section v-else class="min-vh-100 d-flex justify-content-center align-items-center">
     <div class="container">
       <!-- Logo -->
       <div class="row">
@@ -12,6 +13,7 @@
         <div class="col-12 col-md-5 text-center">
           <div class="input-group border rounded pl-3">
             <input
+              ref="username"
               type="text"
               name="username"
               id="username"
@@ -48,27 +50,34 @@ export default {
     User: () =>
       import(/* webpckChunkName: "user-component" */ "@/components/User.vue"),
 
-    NotFound: () =>
+    Loader: () =>
       import(
-        /* webpckChunkName: "user-not-found-component" */ "@/components/NotFound.vue"
+        /* webpckChunkName: "loading-spinner-component" */ "@/components/Loader.vue"
       )
   },
   data() {
     return {
       username: "",
       user: null,
-      userNotFound: true
+      userNotFound: true,
+      isLoading: false
     };
+  },
+  mounted() {
+    this.$refs.username.focus();
   },
   methods: {
     async getUser() {
       try {
+        this.isLoading = true;
         const response = await axios.get(
           `https://api.github.com/users/${this.username}`
         );
+        this.isLoading = false;
         this.userNotFound = false;
         this.user = response.data;
       } catch (error) {
+        this.isLoading = false;
         if (error.response.status === 404) {
           this.userNotFound = true;
           this.user = null;
